@@ -15,7 +15,10 @@ public class Main {
             System.out.println("\n===== SMART EXPENSE TRACKER =====");
             System.out.println("1. Add Income");
             System.out.println("2. Add Expense");
-            System.out.println("3. Exit");
+            System.out.println("3. View Transactions");
+            System.out.println("4. Search Transaction");
+            System.out.println("5. Show Balance");
+            System.out.println("6. Exit");
 
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -31,18 +34,27 @@ public class Main {
                     break;
 
                 case 3:
+                    manager.viewTransactions();
+                    break;
+
+                case 4:
+                    manager.searchTransaction();
+                    break;
+
+                case 5:
+                    manager.showBalance();
+                    break;
+
+                case 6:
                     System.out.println("Thank You!");
                     break;
 
                 default:
                     System.out.println("Invalid Choice!");
-
             }
 
-        } while (choice != 3);
+        } while (choice != 6);
 
         sc.close();
-
     }
-
 }

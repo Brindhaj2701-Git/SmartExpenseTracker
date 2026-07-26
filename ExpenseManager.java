@@ -48,4 +48,59 @@ public class ExpenseManager {
         System.out.println("\nExpense Added Successfully!");
     }
 
+    public void viewTransactions() {
+
+    if (expenses.isEmpty()) {
+        System.out.println("\nNo Transactions Found!");
+        return;
+    }
+
+    System.out.println("\n===== ALL TRANSACTIONS =====");
+
+    for (Expense e : expenses) {
+        e.display();
+    }
+   }
+
+   public void searchTransaction() {
+
+    System.out.print("Enter Transaction ID: ");
+    int id = sc.nextInt();
+
+    for (Expense e : expenses) {
+
+        if (e.getTransactionId() == id) {
+
+            System.out.println("\nTransaction Found!");
+            e.display();
+            return;
+        }
+    }
+
+    System.out.println("\nTransaction Not Found!");
+
+    }
+
+    public void showBalance() {
+
+    double income = 0;
+    double expense = 0;
+
+    for (Expense e : expenses) {
+
+        if (e.getType().equalsIgnoreCase("Income")) {
+            income += e.getAmount();
+        } else {
+            expense += e.getAmount();
+        }
+
+    }
+
+    System.out.println("\n===== BALANCE SUMMARY =====");
+    System.out.println("Total Income  : ₹" + income);
+    System.out.println("Total Expense : ₹" + expense);
+    System.out.println("Balance       : ₹" + (income - expense));
+
+    }
+
 }
