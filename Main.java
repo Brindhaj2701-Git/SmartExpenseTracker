@@ -18,7 +18,9 @@ public class Main {
             System.out.println("3. View Transactions");
             System.out.println("4. Search Transaction");
             System.out.println("5. Show Balance");
-            System.out.println("6. Exit");
+            System.out.println("6. Update Transaction");
+            System.out.println("7. Delete Transaction");
+            System.out.println("8. Exit");
 
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -46,14 +48,23 @@ public class Main {
                     break;
 
                 case 6:
+                    manager.updateTransaction();
+                    break;
+
+                case 7:
+                    manager.deleteTransaction();
+                    break;
+
+                case 8:
                     System.out.println("Thank You!");
                     break;
 
                 default:
                     System.out.println("Invalid Choice!");
+
             }
 
-        } while (choice != 6);
+        } while (choice != 8);
 
         sc.close();
     }

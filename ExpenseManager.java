@@ -95,12 +95,58 @@ public class ExpenseManager {
         }
 
     }
-
+    
     System.out.println("\n===== BALANCE SUMMARY =====");
     System.out.println("Total Income  : ₹" + income);
     System.out.println("Total Expense : ₹" + expense);
     System.out.println("Balance       : ₹" + (income - expense));
 
+    }
+
+
+    public void updateTransaction() {
+
+    System.out.print("Enter Transaction ID: ");
+    int id = sc.nextInt();
+    sc.nextLine();
+
+    for (Expense e : expenses) {
+
+        if (e.getTransactionId() == id) {
+
+            System.out.print("Enter New Category: ");
+            e.setCategory(sc.nextLine());
+
+            System.out.print("Enter New Amount: ");
+            e.setAmount(sc.nextDouble());
+
+            System.out.println("\nTransaction Updated Successfully!");
+            return;
+        }
+
+    }
+
+    System.out.println("\nTransaction Not Found!");
+    }
+
+    public void deleteTransaction() {
+
+    System.out.print("Enter Transaction ID: ");
+    int id = sc.nextInt();
+
+    for (Expense e : expenses) {
+
+        if (e.getTransactionId() == id) {
+
+            expenses.remove(e);
+
+            System.out.println("\nTransaction Deleted Successfully!");
+            return;
+        }
+
+    }
+
+    System.out.println("\nTransaction Not Found!");
     }
 
 }
