@@ -7,6 +7,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         ExpenseManager manager = new ExpenseManager();
+        manager.loadFromFile();
 
         int choice;
 
