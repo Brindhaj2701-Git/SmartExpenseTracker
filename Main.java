@@ -21,7 +21,8 @@ public class Main {
             System.out.println("5. Show Balance");
             System.out.println("6. Update Transaction");
             System.out.println("7. Delete Transaction");
-            System.out.println("8. Exit");
+            System.out.println("8. Generate Report");
+            System.out.println("9. Exit");
 
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -57,6 +58,10 @@ public class Main {
                     break;
 
                 case 8:
+                    manager.generateReport();
+                    break;
+
+                case 9:
                     System.out.println("Thank You!");
                     break;
 
@@ -65,7 +70,7 @@ public class Main {
 
             }
 
-        } while (choice != 8);
+        } while (choice != 9);
 
         sc.close();
     }

@@ -264,4 +264,67 @@ public class ExpenseManager {
         return false;
     }
 
+    public void generateReport() {
+
+    if (expenses.isEmpty()) {
+        System.out.println("\nNo Transactions Found!");
+        return;
+    }
+
+    double totalIncome = 0;
+    double totalExpense = 0;
+
+    double highestExpense = 0;
+    double lowestExpense = Double.MAX_VALUE;
+
+    int incomeCount = 0;
+    int expenseCount = 0;
+
+    for (Expense e : expenses) {
+
+        if (e.getType().equalsIgnoreCase("Income")) {
+
+            totalIncome += e.getAmount();
+            incomeCount++;
+
+        } else {
+
+            totalExpense += e.getAmount();
+            expenseCount++;
+
+            if (e.getAmount() > highestExpense) {
+                highestExpense = e.getAmount();
+            }
+
+            if (e.getAmount() < lowestExpense) {
+                lowestExpense = e.getAmount();
+            }
+        }
+    }
+
+    if (expenseCount == 0) {
+        lowestExpense = 0;
+    }
+
+    System.out.println("\n====================================");
+    System.out.println("       FINANCIAL REPORT");
+    System.out.println("====================================");
+
+    System.out.println("Income Transactions  : " + incomeCount);
+    System.out.println("Expense Transactions : " + expenseCount);
+    System.out.println("Total Transactions   : " + expenses.size());
+
+    System.out.println("------------------------------------");
+
+    System.out.println("Total Income         : ₹" + totalIncome);
+    System.out.println("Total Expense        : ₹" + totalExpense);
+    System.out.println("Current Balance      : ₹" + (totalIncome - totalExpense));
+
+    System.out.println("------------------------------------");
+
+    System.out.println("Highest Expense      : ₹" + highestExpense);
+    System.out.println("Lowest Expense       : ₹" + lowestExpense);
+
+    System.out.println("====================================");
+   }
 }
