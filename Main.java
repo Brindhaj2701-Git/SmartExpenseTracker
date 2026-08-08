@@ -22,7 +22,13 @@ public class Main {
             System.out.println("6. Update Transaction");
             System.out.println("7. Delete Transaction");
             System.out.println("8. Generate Report");
-            System.out.println("9. Exit");
+            System.out.println("9. Search by Category");
+            System.out.println("10. Search by Amount");
+            System.out.println("11. View Income Transactions");
+            System.out.println("12. View Expense Transactions");
+            System.out.println("13. Sort by Amount");
+            System.out.println("14. Sort by Transaction ID");
+            System.out.println("15. Exit");
 
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -62,6 +68,30 @@ public class Main {
                     break;
 
                 case 9:
+                    manager.searchByCategory();
+                    break;
+
+                case 10:
+                    manager.searchByAmount();
+                    break;
+
+                case 11:
+                    manager.viewIncomeTransactions();
+                    break;
+
+                case 12:
+                    manager.viewExpenseTransactions();
+                    break;
+
+                case 13:
+                    manager.sortByAmount();
+                    break;
+
+                case 14:
+                    manager.sortByTransactionId();
+                    break;
+
+                case 15:
                     System.out.println("Thank You!");
                     break;
 
@@ -70,7 +100,7 @@ public class Main {
 
             }
 
-        } while (choice != 9);
+        } while (choice != 15);
 
         sc.close();
     }

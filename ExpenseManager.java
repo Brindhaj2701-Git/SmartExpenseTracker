@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
 public class ExpenseManager {
 
@@ -266,65 +267,167 @@ public class ExpenseManager {
 
     public void generateReport() {
 
-    if (expenses.isEmpty()) {
-        System.out.println("\nNo Transactions Found!");
-        return;
+        if (expenses.isEmpty()) {
+            System.out.println("\nNo Transactions Found!");
+            return;
+        }
+
+        double totalIncome = 0;
+        double totalExpense = 0;
+
+        double highestExpense = 0;
+        double lowestExpense = Double.MAX_VALUE;
+
+        int incomeCount = 0;
+        int expenseCount = 0;
+
+        for (Expense e : expenses) {
+
+            if (e.getType().equalsIgnoreCase("Income")) {
+
+                totalIncome += e.getAmount();
+                incomeCount++;
+
+            } else {
+
+                totalExpense += e.getAmount();
+                expenseCount++;
+
+                if (e.getAmount() > highestExpense) {
+                    highestExpense = e.getAmount();
+                }
+
+                if (e.getAmount() < lowestExpense) {
+                    lowestExpense = e.getAmount();
+                }
+            }
+        }
+
+        if (expenseCount == 0) {
+            lowestExpense = 0;
+        }
+
+        System.out.println("\n====================================");
+        System.out.println("       FINANCIAL REPORT");
+        System.out.println("====================================");
+
+        System.out.println("Income Transactions  : " + incomeCount);
+        System.out.println("Expense Transactions : " + expenseCount);
+        System.out.println("Total Transactions   : " + expenses.size());
+
+        System.out.println("------------------------------------");
+
+        System.out.println("Total Income         : ₹" + totalIncome);
+        System.out.println("Total Expense        : ₹" + totalExpense);
+        System.out.println("Current Balance      : ₹" + (totalIncome - totalExpense));
+
+        System.out.println("------------------------------------");
+
+        System.out.println("Highest Expense      : ₹" + highestExpense);
+        System.out.println("Lowest Expense       : ₹" + lowestExpense);
+
+        System.out.println("====================================");
     }
 
-    double totalIncome = 0;
-    double totalExpense = 0;
+    public void searchByCategory() {
 
-    double highestExpense = 0;
-    double lowestExpense = Double.MAX_VALUE;
+        sc.nextLine();
 
-    int incomeCount = 0;
-    int expenseCount = 0;
+        System.out.print("Enter Category: ");
+        String category = sc.nextLine();
 
-    for (Expense e : expenses) {
+        boolean found = false;
 
-        if (e.getType().equalsIgnoreCase("Income")) {
+        for (Expense e : expenses) {
 
-            totalIncome += e.getAmount();
-            incomeCount++;
+            if (e.getCategory().equalsIgnoreCase(category)) {
 
-        } else {
-
-            totalExpense += e.getAmount();
-            expenseCount++;
-
-            if (e.getAmount() > highestExpense) {
-                highestExpense = e.getAmount();
+                e.display();
+                found = true;
             }
+        }
 
-            if (e.getAmount() < lowestExpense) {
-                lowestExpense = e.getAmount();
-            }
+        if (!found) {
+            System.out.println("\nNo transactions found for this category!");
         }
     }
 
-    if (expenseCount == 0) {
-        lowestExpense = 0;
+    public void searchByAmount() {
+
+        System.out.print("Enter Amount: ");
+        double amount = sc.nextDouble();
+
+        boolean found = false;
+
+        for (Expense e : expenses) {
+
+            if (e.getAmount() == amount) {
+
+                e.display();
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("\nNo transactions found with this amount!");
+        }
     }
 
-    System.out.println("\n====================================");
-    System.out.println("       FINANCIAL REPORT");
-    System.out.println("====================================");
+    public void viewIncomeTransactions() {
 
-    System.out.println("Income Transactions  : " + incomeCount);
-    System.out.println("Expense Transactions : " + expenseCount);
-    System.out.println("Total Transactions   : " + expenses.size());
+        boolean found = false;
 
-    System.out.println("------------------------------------");
+        System.out.println("\n===== INCOME TRANSACTIONS =====");
 
-    System.out.println("Total Income         : ₹" + totalIncome);
-    System.out.println("Total Expense        : ₹" + totalExpense);
-    System.out.println("Current Balance      : ₹" + (totalIncome - totalExpense));
+        for (Expense e : expenses) {
 
-    System.out.println("------------------------------------");
+            if (e.getType().equalsIgnoreCase("Income")) {
 
-    System.out.println("Highest Expense      : ₹" + highestExpense);
-    System.out.println("Lowest Expense       : ₹" + lowestExpense);
+                e.display();
+                found = true;
+            }
+        }
 
-    System.out.println("====================================");
-   }
+        if (!found) {
+            System.out.println("No income transactions found!");
+        }
+    }
+
+    public void viewExpenseTransactions() {
+
+        boolean found = false;
+
+        System.out.println("\n===== EXPENSE TRANSACTIONS =====");
+
+        for (Expense e : expenses) {
+
+            if (e.getType().equalsIgnoreCase("Expense")) {
+
+                e.display();
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No expense transactions found!");
+        }
+    }
+
+    public void sortByAmount() {
+
+        expenses.sort(Comparator.comparingDouble(Expense::getAmount));
+
+        System.out.println("\nTransactions sorted by amount!");
+
+        viewTransactions();
+    }
+
+    public void sortByTransactionId() {
+
+        expenses.sort(Comparator.comparingInt(Expense::getTransactionId));
+
+        System.out.println("\nTransactions sorted by Transaction ID!");
+
+        viewTransactions();
+    }
 }
